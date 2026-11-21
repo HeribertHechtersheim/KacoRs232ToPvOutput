@@ -1,0 +1,27 @@
+name: PV Logger RS232 to PVOutput
+version: "1.0.0"
+slug: pvlogger_rs232
+description: Reads solar inverter data from RS232/USB serial ports and uploads it to PVOutput.org
+url: https://github.com/HeribertHechtersheim/KacoRs232ToPvOutput
+documentation: https://github.com/HeribertHechtersheim/KacoRs232ToPvOutput/blob/main/DOCS.md
+arch:
+  - aarch64
+  - amd64
+  - armv7
+  - armhf
+  - i386
+init: false
+startup: services
+boot: auto
+uart: true
+usb: true
+options:
+  loggers: []
+schema:
+  loggers:
+    - name: str?
+      serial_port: str
+      system_id: str
+      api_key: password
+      baudrate: int?
+
