@@ -67,7 +67,7 @@ def init_port(port, path, baudrate):
         port.timeout = SERIAL_TIMEOUT_SEC
         port.open()
     except Exception as error:
-        print("Unable to init serial port %s: %s" % (path, error))
+        logger.error("Unable to init serial port %s: %s" % (path, error))
         time.sleep(5)
 
 
@@ -95,7 +95,7 @@ def read_input(port):
             "temp": int(cols[9]),
         }
     except ValueError as error:
-        print("Invalid line %r: %s" % (line, error))
+        logger.debug("Invalid line %r: %s" % (line, error))
         return None
 
 
@@ -108,7 +108,7 @@ def main():
     port = serial.serial_for_url(path, do_not_open=True)
     queue = collections.deque(maxlen=UPLOAD_QUEUE_LEN)
     init_port(port, path, baudrate)
-    print("Logging %s to PVOutput system %s" % (path, system_id))
+    logger.info("Logging %s to PVOutput system %s" % (path, system_id))
 
     while True:
         n = 0
@@ -120,7 +120,7 @@ def main():
             try:
                 data = read_input(port)
             except Exception as error:
-                print(error)
+                logger.debug(error)
                 init_port(port, path, baudrate)
                 continue
             if data is None:
@@ -139,7 +139,7 @@ def main():
             try:
                 upload(api_key, system_id, queue[0])
             except Exception as error:
-                print(error)
+                logger.warning(error)
                 time.sleep(5)
             else:
                 queue.popleft()
@@ -147,7 +147,7 @@ def main():
                 requests += 1
 
         if queue:
-            print("Queued data length: %d" % len(queue))
+            logger.debug("Queued data length: %d" % len(queue))
 
 
 if __name__ == "__main__":
