@@ -1,5 +1,5 @@
 name: PV Logger RS232 to PVOutput
-version: "1.0.0"
+version: "1.0.1"
 slug: pvlogger_rs232
 description: Reads solar inverter data from RS232/USB serial ports and uploads it to PVOutput.org
 url: https://github.com/HeribertHechtersheim/KacoRs232ToPvOutput

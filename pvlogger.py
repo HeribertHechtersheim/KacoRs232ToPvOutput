@@ -10,6 +10,7 @@ Serial line format (10 whitespace separated columns):
 """
 
 import collections
+import logging
 import os
 import sys
 import time
@@ -18,6 +19,8 @@ import urllib.parse
 import urllib.request
 
 import serial
+
+logger = logging.getLogger(__name__)
 
 SERIAL_TIMEOUT_SEC = 15
 INTERVAL_SEC = 60 * 5
@@ -128,7 +131,7 @@ def main():
 
         if n >= MIN_ENTRIES_FOR_AVG:
             avg = {key: value / n for key, value in sums.items()}
-            print(time.strftime("%d.%m.%Y %H:%M", time.localtime(interval_end)) + ", n=%d: %s" % (n, avg))
+            logger.debug(time.strftime("%d.%m.%Y %H:%M", time.localtime(interval_end)) + ", n=%d: %s" % (n, avg))
             avg["timeStamp"] = interval_end
             queue.append(avg)
 
