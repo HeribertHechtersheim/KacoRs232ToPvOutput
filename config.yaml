@@ -7,9 +7,6 @@ documentation: https://github.com/HeribertHechtersheim/KacoRs232ToPvOutput/blob/
 arch:
   - aarch64
   - amd64
-  - armv7
-  - armhf
-  - i386
 init: false
 startup: services
 boot: auto
